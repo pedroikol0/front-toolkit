@@ -1,0 +1,73 @@
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Exo+2:wght@400;700&family=Rajdhani:wght@400;700&family=Montserrat:wght@400;700&family=Poppins:wght@400;700&family=Raleway:wght@400;700&display=swap');
+
+
+html{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    height: 100vh;
+    background-color: #f8f8f8;
+    font-family: 'Rajdhani', 'Arial', sans-serif;
+   
+}
+
+.container {
+    display: flex;
+    width: 90vw;
+    height: 85vh;
+    background-color: rgb(255, 255, 255);
+    border-radius: 15px;
+    box-shadow: 5px 5px 40px rgba(0, 0, 0, 0.1);
+    
+    
+}
+
+.title {
+    position: relative;
+    font-family: 'Orbitron', 'Arial', sans-serif;
+    font-weight: 700;
+    text-align: left;
+    font-size: 15vw;
+    color: #3333332c;
+    margin-top: 45px;
+    line-height: 0.85;
+    padding-left: 2vw;
+}
+
+.subtitle {
+    position: relative;
+    font-family: 'Orbitron', 'Arial', sans-serif; /* Futurist font */
+    font-weight: 700;
+    font-size: 1rem;
+    color: #483e3e; /* White for a techy look */
+    text-align: left;
+    margin: 0;
+
+    padding: 2vw;
+    letter-spacing: 1px; /* Adds a futuristic touch */
+  }
+
+
+.myname, a {
+    position: block;
+    font-family: 'Exo 2', 'Arial', sans-serif;
+    text-align: center;
+    color: #333;
+    font-size: 1vw;
+    text-decoration: none;
+    margin: 0;
+    padding-top: 40px;
+}
+
+a:hover {
+    color: #333;
+    text-decoration: underline;
+}   
+
+.tools {
+    background-color: black;
+    font-family: 'Orbitron', 'Arial', sans-serif;
+    
+}

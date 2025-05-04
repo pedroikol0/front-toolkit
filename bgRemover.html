@@ -1,0 +1,87 @@
+!<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Background Remover</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Exo+2:wght@400;700&family=Rajdhani:wght@400;700&family=Montserrat:wght@400;700&family=Poppins:wght@400;700&family=Raleway:wght@400;700&display=swap">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Exo+2:wght@400;700&family=Rajdhani:wght@400;700&family=Montserrat:wght@400;700&family=Poppins:wght@400;700&family=Raleway:wght@400;700&display=swap');
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    
+  }
+  to {
+    opacity: 1;
+    
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: scale(0.98); }
+  to   { opacity: 1; transform: scale(1); }
+}
+    :selection {
+      background: #222;
+      color: #fff;
+    }
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      font-family: 'Rajdhani', sans-serif;
+      display: flex;
+      flex-direction: column;   
+      align-items: center;
+      justify-content: center;
+      transition: background-color 0.5s ease;
+    }
+
+    .container {
+      animation: fadeIn 0.6s ease forwards;
+      background-color: white;
+      border-radius: 15px;
+      box-shadow: 5px 5px 40px rgba(0, 0, 0, 0.1);
+      max-width: 90vw;
+      width: 90vw;
+      height: 85vh;
+      padding: rem;
+      display: flex;    
+      flex-direction: column;
+      align-items: center;
+      gap: 2rem;
+      z-index: 2;
+    }
+
+    .title {
+    animation: fadeIn 1.2s ease-out both;
+    animation-delay: 0.3s;
+    font-family: 'Orbitron', 'Arial', sans-serif;
+    text-align: left;
+    font-weight: 700;
+    font-size: 11.6vw;
+    max-width: 50%;
+    color: #33333315;
+    position: absolute;
+    user-select: none;
+    top: 19%;
+    left: 5%;
+    transform: translateY(-50%);
+    line-height: 0.9;
+    z-index: 0;
+}
+
+    </style>
+</head>
+<body>
+  <main class="main">
+    <section class="container">
+        <h1 class="title">BACKGROUND REMOVER</h1>
+    </section>
+  </main>
+</body>
+</html>
+        

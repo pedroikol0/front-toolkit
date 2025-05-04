@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Color Picker</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;700&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Exo+2:wght@400;700&family=Rajdhani:wght@400;700&family=Montserrat:wght@400;700&family=Poppins:wght@400;700&family=Raleway:wght@400;700&display=swap">
+  <script src="https://cdn.jsdelivr.net/npm/@jaames/iro@5"></script>
+  <style>
+
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Exo+2:wght@400;700&family=Rajdhani:wght@400;700&family=Montserrat:wght@400;700&family=Poppins:wght@400;700&family=Raleway:wght@400;700&display=swap');
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    
+  }
+  to {
+    opacity: 1;
+    
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: scale(0.98); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+    * {
+      box-sizing: border-box;
+    }
+
+    ::selection {
+      background: #222;
+      color: #fff;
+    }
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      font-family: 'Rajdhani', sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      transition: background-color 0.5s ease;
+    }
+
+    .container {
+      animation: fadeIn 0.6s ease forwards;
+      background-color: white;
+      border-radius: 15px;
+      box-shadow: 5px 5px 40px rgba(0, 0, 0, 0.1);
+      max-width: 90vw;
+      padding: 2rem;
+      padding-top: 8rem;
+      padding-bottom: 2rem;
+      
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2rem;
+      z-index: 2;
+    }
+
+    #colorPicker {
+      margin-bottom: 1rem;
+    }
+
+    input[type="text"],
+    select {
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      padding: 10px;
+      font-size: 14px;
+      width: 250px;
+      max-width: 280px;
+      text-align: center;
+      justify-content: center;
+      display: flex;
+      flex-direction: column;
+    }
+
+    button {
+     
+      background-color: #ffffff;
+      color: #222;
+      border: none;
+      padding: 10px 16px;
+      border-radius: 6px;
+      font-weight: 500;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      cursor: pointer;
+      box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    button:hover {
+        transform: translateY(-4px);
+        box-shadow: 12px 12px 40px rgba(0, 0, 0, 0.12);
+      
+    }
+
+    #palette {
+        animation: fadeIn 0.6s ease forwards;
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .color-box {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      font-size: 12px;
+    }
+
+    .color-box div {
+      width: 60px;
+      height: 60px;
+      border-radius: 6px;
+      border: 1px solid #aaa;
+    }
+
+    .myname {
+        animation: fadeIn 1.2s ease-out both;
+      font-size: 12px;
+      color: #333;
+      
+    }
+
+    .myname a {
+        animation: fadeIn 1.2s ease-out both;
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .myname a:hover {
+      text-decoration: underline;
+    }
+
+    #topGradient {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 20vh;
+    z-index: 0;
+    pointer-events: none;
+
+    }
+    body {
+    background-color: #f8f8f8; 
+    }
+
+    .title {
+    animation: fadeIn 1.2s ease-out both;
+    animation-delay: 0.3s;
+    font-family: 'Orbitron', 'Arial', sans-serif;
+    text-align: left;
+    font-weight: 700;
+    font-size: 11.6vw;
+    max-width: 50%;
+    color: #33333315;
+    position: absolute;
+    user-select: none;
+    top: 19%;
+    left: 1%;
+    transform: translateY(-50%);
+    line-height: 0.9;
+    z-index: 0;
+}
+
+  </style>
+</head>
+<body>
+    <h1 class="title">COLOR PICKER</h1>
+    
+  <main class="container">
+
+    
+
+    <div style="animation: fadeIn 0.6s ease-in-out;" id="topGradient"></div>
+    <div style="animation: fadeIn 0.6s ease-in-out;" id="colorPicker"></div>
+    
+
+
+    <div style="display: flex; align-items: center; gap: 10px;">
+      <div id="colorPreview" style="width: 32px; height: 32px; border-radius: 50%; border: 1px solid #aaa;"></div>
+      <input id="hexInput" type="text" />
+    </div>
+
+    <div style="width: 85%; max-width: 300px; justify-content: center; align-items: center;">
+      <select id="harmonySelect">
+        <option value="complementary">Complementary</option>
+        <option value="monochromatic">Monochromatic</option>
+        <option value="analogous">Analogous</option>
+        <option value="triadic">Triadic</option>
+        <option value="tetradic">Tetradic</option>
+      </select>
+    </div>
+
+    <div id="palette"></div>
+
+    <div style="display: flex; gap: 12px; margin-top: 1rem;">
+        <button onclick="exportPalette()">Copy</button>
+    </div>
+    
+  </main>
+
+  <button style="position: absolute; top: 20px; left: 20px; background-color: white; color: #222; " onclick="window.location.href='index.html'">Back to Menu</button>
+
+  <div style=" font-family: 'Orbitron', 'Arial', sans-serif; animation: fadeIn 0.6s ease forwards; color: #222 ;max-width: 600px; font-weight: 700 ; letter-spacing: 0.8px; margin-top: 2rem; text-align: justify; font-size: 1rem; line-height: 1.6; position: absolute; right: 2vw;">
+    <h3 style="font-weight: 900; font-size: 3.26rem; letter-spacing: 1px; color: #222; text-align: left; line-height: -1;">Why Color Harmony Matters</h3>
+    <p>
+      Choosing the right color harmony mode is essential for creating visually appealing and effective designs. Different combinations—such as complementary, analogous, triadic, tetradic, or monochromatic—can evoke various moods, guide user behavior, and ensure readability. When colors resonate well with each other, they enhance usability, reinforce branding, and elevate user experience. By exploring these harmonies, designers can craft interfaces and visuals that not only look great but also communicate effectively.
+    </p>
+  </div>
+  
+  <script>
+   function setBackgroundGradient(colors) {
+    if (!colors || colors.length === 0) return;
+
+    // Cria paradas de cor mais abruptas, dividindo o espaço igualmente
+    const step = 100 / colors.length; // Calcula o espaço para cada cor
+    let gradientStops = [];
+    
+    colors.forEach((color, index) => {
+        const start = index * step;
+        const end = (index + 1) * step;
+        // Define a cor com paradas específicas para transição abrupta
+        gradientStops.push(`${color} ${start}%`);
+        gradientStops.push(`${color} ${end}%`);
+    });
+
+    const gradient = `linear-gradient(to right, ${gradientStops.join(", ")})`;
+    document.body.style.background = gradient;
+    document.body.style.backgroundSize = "100% 15vh"; 
+    document.body.style.backgroundRepeat = "no-repeat";
+  }
+
+  function showWave(index) {
+    
+  }
+
+  const colorPicker = new iro.ColorPicker("#colorPicker", {
+    width: 300,
+    color: "#f8f8f8",
+    borderWidth: 1,
+    borderColor: "#fff",
+  });
+
+  const hexInput = document.getElementById("hexInput");
+  const harmonySelect = document.getElementById("harmonySelect");
+  const paletteContainer = document.getElementById("palette");
+  const preview = document.getElementById("colorPreview");
+
+  colorPicker.on("color:change", function (color) {
+    hexInput.value = color.hexString;
+    preview.style.backgroundColor = color.hexString;
+    updatePalette();
+  });
+
+  hexInput.addEventListener("change", () => {
+    try {
+      colorPicker.color.hexString = hexInput.value;
+    } catch {}
+  });
+
+  harmonySelect.addEventListener("change", updatePalette);
+
+  function updatePalette() {
+    const base = colorPicker.color.hsl;
+    const hexBase = colorPicker.color.hexString;
+    const harmony = harmonySelect.value;
+    let colors = [];
+
+    function shiftHue(h, offset) {
+      return (h + offset + 360) % 360;
+    }
+
+    switch (harmony) {
+      case "complementary":
+        colors = [
+          hexBase,
+          hslToHex(shiftHue(base.h, 180), base.s, base.l),
+        ];
+        break;
+      case "analogous":
+        colors = [
+          hslToHex(shiftHue(base.h, -30), base.s, base.l),
+          hexBase,
+          hslToHex(shiftHue(base.h, 30), base.s, base.l),
+        ];
+        break;
+      case "triadic":
+        colors = [
+          hslToHex(shiftHue(base.h, 0), base.s, base.l),
+          hslToHex(shiftHue(base.h, 120), base.s, base.l),
+          hslToHex(shiftHue(base.h, 240), base.s, base.l),
+        ];
+        break;
+      case "tetradic":
+        colors = [
+          hexBase,
+          hslToHex(shiftHue(base.h, 90), base.s, base.l),
+          hslToHex(shiftHue(base.h, 180), base.s, base.l),
+          hslToHex(shiftHue(base.h, 270), base.s, base.l),
+        ];
+        break;
+      case "monochromatic":
+        colors = [
+          hslToHex(base.h, base.s, base.l * 0.5),
+          hslToHex(base.h, base.s, base.l),
+          hslToHex(base.h, base.s, Math.min(base.l * 1.5, 100)),
+        ];
+        break;
+    }
+
+    paletteContainer.innerHTML = "";
+    colors.forEach(color => {
+      const wrapper = document.createElement("div");
+      wrapper.style.display = "flex";
+      wrapper.style.flexDirection = "column";
+      wrapper.style.alignItems = "center";
+      wrapper.style.fontSize = "14px";
+
+      const div = document.createElement("div");
+      div.style.background = color;
+      div.style.width = "60px";
+      div.style.height = "60px";
+      div.style.borderRadius = "6px";
+      div.setAttribute("data-color", color);
+
+      const label = document.createElement("p");
+      label.innerText = color;
+      label.style.margin = "6px 0 0 0";
+
+      wrapper.appendChild(div);
+      wrapper.appendChild(label);
+      paletteContainer.appendChild(wrapper);
+    });
+
+    setBackgroundGradient(colors);
+  }
+
+  function hslToHex(h, s, l) {
+    s /= 100;
+    l /= 100;
+    const k = n => (n + h / 30) % 12;
+    const a = s * Math.min(l, 1 - l);
+    const f = n => {
+      const color =
+        l - a * Math.max(Math.min(k(n) - 3, 9 - k(n), 1), -1);
+      return Math.round(255 * color)
+        .toString(16)
+        .padStart(2, "0");
+    };
+    return `#${f(0)}${f(8)}${f(4)}`;
+  }
+
+  function exportPalette() {
+    const colors = Array.from(
+      paletteContainer.querySelectorAll("div[data-color]")
+    ).map(div => div.getAttribute("data-color"));
+    const text = JSON.stringify(colors, null, 2);
+    navigator.clipboard.writeText(text);        
+    alert("Palette copied to clipboard as JSON!");
+  }
+
+  function downloadPalette() {
+    const colors = Array.from(
+      paletteContainer.querySelectorAll("div[data-color]")
+    ).map(div => div.getAttribute("data-color"));
+    const blob = new Blob([JSON.stringify(colors, null, 2)], {
+      type: "application/json",
+    });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "color-palette.json";
+    a.click();
+    URL.revokeObjectURL(url);
+  }
+
+  updatePalette();
+
+  </script>
+</body>
+</html>

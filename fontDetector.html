@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Font Detector</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap">
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Orbitron', sans-serif;
+      background: #f5f5f5;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+
+    .tool-card {
+      background: white;
+      border-radius: 20px;
+      box-shadow: 0 8px 40px rgba(0, 0, 0, 0.08);
+      width: 380px;
+      padding: 2rem;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+      z-index: 2;
+      min-height: 80vh;
+    }
+
+    .tool-card h2 {
+      font-size: 1.6rem;
+      margin: 0;
+    }
+
+    .tool-card p {
+      font-size: 0.9rem;
+      color: #555;
+      margin: 0;
+    }
+
+    .icon {
+      font-size: 4rem;
+    }
+
+    .file-upload {
+      display: none;
+    }
+
+    .upload-btn {
+      background-color: #111;
+      color: white;
+      padding: 0.8rem 1.5rem;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      font-size: 1rem;
+      font-weight: bold;
+      transition: background 0.3s ease;
+    }
+
+    .upload-btn:hover {
+      background-color: #333;
+    }
+
+    .preview-img {
+      max-width: 100%;
+      max-height: 200px;
+      border-radius: 12px;
+      margin-top: 1rem;
+      object-fit: contain;
+    }
+
+    .result {
+      font-size: 1rem;
+      margin-top: 1rem;
+      color: #111;
+    }
+
+    .result a {
+      color: #222;
+      text-decoration: underline;
+      font-weight: bold;
+    }
+
+    .background-fonts {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        z-index: 0;
+        opacity: 0.08;
+        pointer-events: none;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 2vh;   
+        
+        }
+
+    .scrolling-text {
+    white-space: nowrap;
+    font-size: 12rem;
+    
+    }
+
+    .scrolling-text span {
+    
+    user-select: none;
+    }
+
+/* Animações específicas para cada linha */
+.line1 {
+  animation: scrollLeft 28s linear infinite alternate;
+}
+.line2 {
+  animation: scrollRight 24s linear infinite alternate;
+}
+.line3 {
+  animation: scrollLeft 32s linear infinite alternate;
+}
+
+@keyframes scrollLeft {
+  from { transform: translateX(-50%); }
+  to   { transform: translateX(50%); }
+}
+
+@keyframes scrollRight {
+  from { transform: translateX(50%); }
+  to   { transform: translateX(-50%); }
+}
+
+  </style>
+</head>
+<body>
+
+    <div class="background-fonts">
+        <div class="scrolling-text line1">
+            <span style="font-family: 'Orbitron', sans-serif;">Orbitron</span>
+            <span style="font-family: 'Courier New', monospace;">Courier</span>
+            <span style="font-family: 'Georgia', serif;">Georgia</span>
+            <span style="font-family: 'Comic Sans MS', cursive;">Comic Sans</span>
+            <span style="font-family: 'Impact', fantasy;">Impact</span>
+          </div>
+        
+          <div class="scrolling-text line2">
+            <span style="font-family: 'Lucida Console', monospace;">Lucida</span>
+            <span style="font-family: 'Tahoma', sans-serif;">Tahoma</span>
+            <span style="font-family: 'Garamond', serif;">Garamond</span>
+            <span style="font-family: 'Trebuchet MS', sans-serif;">Trebuchet</span>
+            <span style="font-family: 'Palatino', serif;">Palatino</span>
+          </div>
+        
+          <div class="scrolling-text line3">
+            <span style="font-family: 'Segoe UI', sans-serif;">Segoe</span>
+            <span style="font-family: 'Futura', sans-serif;">Futura</span>
+            <span style="font-family: 'Brush Script MT', cursive;">Brush Script</span>
+            <span style="font-family: 'Calibri', sans-serif;">Calibri</span>
+            <span style="font-family: 'Baskerville', serif;">Baskerville</span>
+          </div>
+      </div>
+
+  <div class="tool-card">
+    <div class="icon">🅰️</div>
+    <h2>Font Detector</h2>
+    <p>Upload an image → detect font family</p>
+
+    <label class="upload-btn" for="imageInput">Upload Image</label>
+    <input type="file" id="imageInput" accept="image/*" class="file-upload" />
+
+    <img id="previewImage" class="preview-img" style="display: none;" />
+
+    <button class="upload-btn" onclick="detectFont()">Detect Font</button>
+
+    <div id="result" class="result"></div>
+  </div>
+
+  <script>
+    const input = document.getElementById('imageInput');
+    const preview = document.getElementById('previewImage');
+    const resultDiv = document.getElementById('result');
+    let imageDataURL = '';
+
+    input.addEventListener('change', function () {
+      const file = input.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function (e) {
+          imageDataURL = e.target.result;
+          preview.src = imageDataURL;
+          preview.style.display = 'block';
+          resultDiv.innerHTML = '';
+        };
+        reader.readAsDataURL(file);
+      }
+    });
+
+    function detectFont() {
+      if (!imageDataURL) {
+        alert('Por favor, envie uma imagem.');
+        return;
+      }
+
+      // Aqui é onde você integraria com uma API real.
+      // Exemplo simulado de resposta:
+      setTimeout(() => {
+        resultDiv.innerHTML = `
+          Fonte identificada: <a href="https://fonts.google.com/specimen/Orbitron" target="_blank">Orbitron</a>
+        `;
+      }, 1000);
+    }
+  </script>
+
+</body>
+</html>

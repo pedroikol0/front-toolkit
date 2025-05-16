@@ -4,12 +4,26 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>BG. REMOVER</title>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap">
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet" />
   <style>
-    @keyframes fadeIn {
-      from { opacity: 0; transform: scale(0.98); }
-      to { opacity: 1; transform: scale(1); }
-    }
+    @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Exo+2:wght@400;700&family=Rajdhani:wght@400;700&family=Montserrat:wght@400;700&family=Poppins:wght@400;700&family=Raleway:wght@400;700&display=swap');
+
+      @keyframes slideUp {
+        from {
+          opacity: 0;
+          
+        }
+        to {
+          opacity: 1;
+          
+        }
+      }
+
+      @keyframes fadeIn {
+        from { opacity: 0; transform: scale(0.98); }
+        to   { opacity: 1; transform: scale(1); }
+      }
+
 
     ::selection {
       background: #222;
@@ -20,208 +34,311 @@
       margin: 0;
       padding: 0;
       height: 100%;
-      font-family: 'Rajdhani', sans-serif;
+      font-family: 'Orbitron', sans-serif;
+      background: #ffffff;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      background-color: #f0f0f0;
+    }
+
+    .title-bg {
+      animation: fadeIn 1.2s ease-out both;
+      animation-delay: 0.3s;
+      position: absolute;
+      font-size: 11.6vw;
+      color: #0000000a;
+      top: -11%;
+      max-width: 70%;
+      left: 0%;
+      transform: translate(-50%, -50%);
+      z-index: 0;
+      user-select: none;
+      white-space: nowrap;
+      font-weight: 800;
     }
 
     .container {
-      animation: fadeIn 0.6s ease forwards;
-      background-color: white;
-      border-radius: 15px;
-      box-shadow: 5px 5px 40px rgba(0, 0, 0, 0.1);
-      max-width: 90vw;
-      width: 90vw;
-      height: 85vh;
-      padding: 2rem;
       display: flex;
-      flex-direction: column;
+      gap: 5vw;
+      max-width: 1200px;
+      width: 90%;
       align-items: center;
-      gap: 2rem;
-      position: relative;
-    }
-
-    .title {
-      animation: fadeIn 1.2s ease-out both;
-      font-family: 'Orbitron', 'Arial', sans-serif;
-      text-align: left;
-      font-weight: 700;
-      font-size: 11.6vw;
-      max-width: 50%;
-      color: #33333315;
-      position: absolute;
-      user-select: none;
-      top: 19%;
-      left: 5%;
-      transform: translateY(-50%);
-      line-height: 0.9;
-      z-index: 0;
-    }
-
-    .main-div {
-      position: absolute;
-      right: 4vw;
-      bottom: 4vh;
-      animation: fadeIn 0.6s ease forwards;
-      background-color: white;
-      border-radius: 15px;
-      box-shadow: 5px 5px 40px rgba(0, 0, 0, 0.1);
-      min-width: 40vw;
-      min-height: 77vh;
-      padding: 2rem;
+      justify-content: center;
       z-index: 2;
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-start;
-      align-items: center;
-      gap: 1.5rem;
     }
 
-    .custom-file-upload {
-      font-family: 'Orbitron', 'Arial', sans-serif;
-      top: 9vh;
-      position: absolute;
-      left: 5vw;
-      color: #fff;
-      font-size: 2rem;
-      background: #222;
-      padding: 1rem 2rem;
-      letter-spacing: 2px;
-      border-radius: 15px;
-      cursor: pointer;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
-
-    .custom-file-upload:hover {
-      transform: translateY(-4px);
-      box-shadow: 12px 12px 40px rgba(0, 0, 0, 0.12);
-    }
-
-    .preview-wrapper {
-      width: 100%;
-      display: flex;
-      flex-direction: column;
+    .upload-area {
+      animation: fadeIn 1.2s ease-out both;
+      animation-delay: 0.3s;
+      display: grid;
       align-items: center;
       gap: 1rem;
+      position: absolute;
+      top: 30%;
+      left: 2vw;
+      min-width: 600px;
+    }
+
+    .upload-button {
+
+      animation: fadeIn 1.2s ease-out both;
+      animation-delay: 0.3s;
+
+      background-color: #111;
+      color: #fff;
+      font-size: 3rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      border: none;
+      font-family: 'Orbitron', sans-serif;
+    }
+
+    .upload-button:hover {
+      background-color: #333;
+      transform: translateY(-2px);
+    }
+
+    .upload-info {
+      animation: fadeIn 1.2s ease-out both;
+      animation-delay: 0.3s;
+
+      font-size: 1rem;
+      font-weight: 900;
+      color: #444;
+      max-width: 200px;
+      line-height: 1.4;
+    }
+
+    .left-box {
+      animation: fadeIn 1.2s ease-out both;
+      
+
+      background: white;
+      
+      padding: 2rem;
+      border-radius: 18px;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+      width: 100%;
+      max-width: 400px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 1.2rem;
+      min-width: 400px;
+      min-height: 800px;
+    }
+
+    .right-text {
+      animation: fadeIn 1.2s ease-out both;
+      animation-delay: 0.3s;
+
+      font-family: 'Orbitron', 'Arial', sans-serif;
+      animation: fadeIn 0.6s ease forwards;
+      color: #222;
+      max-width: 600px;
+      font-weight: 700;
+      letter-spacing: 0.8px;
+      margin-top: 2rem;
+      text-align: justify;
+      font-size: 1rem;
+      line-height: 1.6;
+      position: absolute;
+      right: 2vw;
+      top: 50%;
+    }
+
+    .right-text h3 {
+      font-weight: 900;
+      font-size: 3.26rem;
+      letter-spacing: 1px;
+      color: #222;
+      text-align: left;
+    }
+
+    .right-text p {
+      font-size: 1rem;
+      line-height: 1.6;
+      color: #222;
     }
 
     .result-img {
       max-width: 100%;
-      max-height: 220px;
+      max-height: 800px;
       border-radius: 10px;
-      background: #f6f6f6;
-      object-fit: contain;
+      background: #fafafa;
       padding: 0.5rem;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+      object-fit: contain;
+      box-shadow: 0 0 10px rgba(0,0,0,0.05);
     }
 
-    button {
-      padding: 10px 20px;
-      background: #222;
-      color: white;
+    .btn-action {
+      background-color: #222;
+      color: #fff;
       border: none;
+      padding: 10px 20px;
       border-radius: 8px;
+      font-weight: 600;
       cursor: pointer;
-      transition: background 0.3s ease;
+      transition: all 0.3s ease;
+      box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.05);
+      font-family: 'Orbitron', sans-serif;
+      
     }
 
-    button:hover {
-      background: #444;
+    .btn-action:hover {
+      background-color: #222;
+      color: white;
     }
 
-    #downloadBtn {
-      display: none;
+    a {
+      text-decoration: none;
     }
+
+    .back-button {
+      animation: fadeIn 1.2s ease-out both;
+     position: absolute;
+     top: 20px;
+      left: 20px;
+     background-color: #ffffff;
+     color: #222;
+     border: none;
+     padding: 10px 16px;
+     border-radius: 6px;
+     font-weight: 500;
+     transition: transform 0.3s ease, box-shadow 0.3s ease;
+     cursor: pointer;
+     box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.1);
+     font-family: 'Orbitron', sans-serif;
+   }
+
+   .back-button:hover {
+       transform: translateY(-4px);
+       box-shadow: 12px 12px 40px rgba(0, 0, 0, 0.12);
+     
+   }
+
+
 
     input[type="file"] {
       display: none;
     }
-
   </style>
 </head>
 <body>
-  <main class="main">
-    <section class="container">
-      <h1 class="title">BG. REMOVER</h1>
-      <button style="position: absolute; top: 20px; left: 20px; background-color: white; color: #222; box-shadow: 0 0 10px rgba(0, 0, 0, 0.08);" onclick="window.location.href='index.html'">Back to Menu</button>
+  <h1 class="title-bg">BG. REMOVER</h1>
+  <button class="back-button" onclick="window.location.href='index.html'">Back to Menu</button>
 
-      <label for="imageInput" class="custom-file-upload">Upload your IMG ←</label>
-      <input type="file" id="imageInput" accept="image/*" />
-      <p style="font-family: 'Orbitron', 'Arial', sans-serif; top: 16vh; position: absolute; left: 5vw; font-weight: 600; letter-spacing: 2px; padding-left: 2px;">Effortlessly remove image backgrounds online with one click.</p>
+  <!-- Upload Section -->
+  <div class="upload-area">
+    <label for="imageInput" class="upload-button">Upload IMG ←</label>
+    <input type="file" id="imageInput" accept="image/*" />
+    <div class="upload-info">
+      You can also paste an image using <strong>Ctrl+V</strong>
+    </div>
+  </div>
 
-      
-      <div class="main-div">
-        <div class="preview-wrapper">
-          <img id="uploadedImage" class="result-img" src="" alt="Imagem original" style="display: none;" />
-          <button onclick="removeBackground()" id="removeBtn" style="display: none;">Remover Fundo</button>
-          <img id="resultImage" class="result-img" src="" alt="Resultado sem fundo" style="display: none;" />
-          <a id="downloadBtn" href="#" download="no-background.png">
-            <button>Download</button>
-          </a>
-        </div>
+  <div class="container">
+    <div class="left-box">
+      <div id="placeholder" style="border: 2px dashed #ccc; border-radius: 12px; padding: 3rem; text-align: center; color: #777;">
+        <p>Send us your img<br><small>use Upload / Ctrl+V</small></p>
       </div>
-    </section>
-  </main>
+      <img id="uploadedImage" class="result-img" src="" alt="Imagem original" style="display: none;" />
+      <button onclick="removeBackground()" id="removeBtn" class="btn-action" style="display: none;">Remover Fundo</button>
+      <img id="resultImage" class="result-img" src="" alt="Resultado sem fundo" style="display: none;" />
+      <a id="downloadBtn" href="#" download="no-background.png" style="display: none;">
+        <button class="btn-action">Download</button>
+      </a>
+    </div>
+
+    <div class="right-text">
+      <h3>Make slender, make it png</h3>
+      <p>
+        Upload an image and instantly remove the background with one click. Whether you're designing a product mockup, profile picture, or marketing asset — this tool helps keep your workflow fast and clean. No Photoshop needed.
+      </p>
+    </div>
+  </div>
 
   <script>
-    const imageInput = document.getElementById("imageInput");
-    const uploadedImage = document.getElementById("uploadedImage");
-    const removeBtn = document.getElementById("removeBtn");
-    const resultImage = document.getElementById("resultImage");
-    const downloadBtn = document.getElementById("downloadBtn");
+   
+  const imageInput = document.getElementById("imageInput");
+  const uploadedImage = document.getElementById("uploadedImage");
+  const removeBtn = document.getElementById("removeBtn");
+  const resultImage = document.getElementById("resultImage");
+  const downloadBtn = document.getElementById("downloadBtn");
 
-    imageInput.addEventListener("change", () => {
-      const file = imageInput.files[0];
-      if (file) {
-        const reader = new FileReader();
-        reader.onload = () => {
-          uploadedImage.src = reader.result;
-          uploadedImage.style.display = "block";
-          removeBtn.style.display = "inline-block";
-          resultImage.style.display = "none";
-          downloadBtn.style.display = "none";
-        };
-        reader.readAsDataURL(file);
-      }
-    });
+  let pastedFile = null; // ← arquivo colado vai pra cá
 
-    function removeBackground() {
-      const file = imageInput.files[0];
-      if (!file) {
-        alert("Selecione uma imagem primeiro.");
-        return;
-      }
-
-      const formData = new FormData();
-      formData.append("image_file", file);
-      formData.append("size", "auto");
-
-      fetch("https://api.remove.bg/v1.0/removebg", {
-        method: "POST",
-        headers: {
-          "X-Api-Key": "h23ME4qUhuGHzi7tnmsP5G9z",
-        },
-        body: formData,
-      })
-      .then(response => {
-        if (!response.ok) throw new Error("Erro ao remover fundo.");
-        return response.blob();
-      })
-      .then(blob => {
-        const url = URL.createObjectURL(blob);
-        resultImage.src = url;
-        resultImage.style.display = "block";
-        downloadBtn.href = url;
-        downloadBtn.style.display = "inline-block";
-      })
-      .catch(error => {
-        console.error("Erro:", error);
-        alert("Falha ao remover o fundo da imagem.");
-      });
+  // Quando o usuário escolhe via input
+  imageInput.addEventListener("change", () => {
+    const file = imageInput.files[0];
+    if (file) {
+      pastedFile = null; // ← zera caso seja um novo upload
+      handleImageUpload(file);
     }
+  });
+
+  // Quando o usuário cola com Ctrl+V
+  window.addEventListener("paste", (event) => {
+    const items = (event.clipboardData || event.originalEvent.clipboardData).items;
+    for (let item of items) {
+      if (item.type.indexOf("image") !== -1) {
+        const blob = item.getAsFile();
+        pastedFile = blob; // ← salva imagem colada
+        handleImageUpload(blob);
+      }
+    }
+  });
+
+  function handleImageUpload(file) {
+    const reader = new FileReader();
+    reader.onload = () => {
+      uploadedImage.src = reader.result;
+      uploadedImage.style.display = "block";
+      document.getElementById("placeholder").style.display = "none";
+      removeBtn.style.display = "inline-block";
+      resultImage.style.display = "none";
+      downloadBtn.style.display = "none";
+    };
+    reader.readAsDataURL(file);
+  }
+
+  function removeBackground() {
+    const file = imageInput.files[0] || pastedFile;
+
+    if (!file) {
+      alert("Selecione uma imagem ou cole uma da área de transferência.");
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append("image_file", file);
+    formData.append("size", "auto");
+
+    fetch("https://api.remove.bg/v1.0/removebg", {
+      method: "POST",
+      headers: {
+        "X-Api-Key": "h23ME4qUhuGHzi7tnmsP5G9z",
+      },
+      body: formData,
+    })
+    .then(response => {
+      if (!response.ok) throw new Error("Erro ao remover fundo.");
+      return response.blob();
+    })
+    .then(blob => {
+      const url = URL.createObjectURL(blob);
+      resultImage.src = url;
+      resultImage.style.display = "block";
+      downloadBtn.href = url;
+      downloadBtn.style.display = "inline-block";
+    })
+    .catch(error => {
+      console.error("Erro:", error);
+      alert("Falha ao remover o fundo da imagem.");
+    });
+  }
   </script>
 </body>
 </html>

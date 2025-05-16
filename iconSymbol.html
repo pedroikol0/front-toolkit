@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Icon & Symbol</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet" />
+  <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
+  <style>
+    * {
+      box-sizing: border-box;
+      font-family: 'Orbitron', sans-serif;
+    }
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      background: #f8f8f8;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    .title-bg {
+      position: absolute;
+      font-size: 11vw;
+      color: #00000010;
+      bottom: -33%;
+      left: 51%;
+      transform: translate(-50%, -50%);
+      font-weight: 900;
+      z-index: 0;
+      white-space: nowrap;
+      user-select: none;
+      pointer-events: none;
+    }
+
+    .wrapper {
+      position: absolute;
+      bottom: -10%;
+      left: 5%;
+      padding: 2rem;
+      background: #fff;
+      border-radius: 20px;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.06);
+      max-width: 90vw;
+      display: flex;
+      gap: 2rem;
+      position: relative;
+      z-index: 1;
+      height: 80vh;
+    }
+
+    .sidebar {
+      width: 180px;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .sidebar button {
+      background: #fff;
+      color: #222;
+      border: none;
+      padding: 1rem;
+      border-radius: 10px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.05);
+      transition: all 0.3s ease;
+      text-align: left;
+    }
+
+    .sidebar button.active {
+        background: #222;
+        color: #fff;
+        }
+    
+    .sidebar button:hover {
+      transform: translateY(-2px);
+    }
+
+    .content {
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+      overflow-y: auto;
+      padding-right: 1rem;
+    }
+
+    .search-bar {
+      padding: 0.8rem 1rem;
+      font-size: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      width: 100%;
+      max-width: 400px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(70px, 1fr));
+      gap: 10px;
+    }
+
+    .icon {
+      background: #f4f4f4;
+      border-radius: 10px;
+      padding: 10px;
+      font-size: 2rem;
+      width: 70px;
+      height: 70px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s ease;
+      cursor: pointer;
+    }
+
+    .icon:hover {
+      background: #ddd;
+    
+    }
+
+    iconify-icon {
+      font-size: 32px;
+      color: #111;
+    }
+
+    .copied {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: #222;
+      color: #fff;
+      padding: 0.7rem 1.2rem;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      pointer-events: none;
+      z-index: 10;
+    }
+
+    .copied.show {
+      opacity: 1;
+    }
+
+    .back-button {
+      animation: fadeIn 1.2s ease-out both;
+     position: absolute;
+     top: 20px;
+      left: 20px;
+     background-color: #ffffff;
+     color: #222;
+     border: none;
+     padding: 10px 16px;
+     border-radius: 6px;
+     font-weight: 500;
+     transition: transform 0.3s ease, box-shadow 0.3s ease;
+     cursor: pointer;
+     box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.1);
+   }
+
+   .back-button:hover {
+       transform: translateY(-4px);
+       box-shadow: 12px 12px 40px rgba(0, 0, 0, 0.12);
+     
+   }
+  </style>
+</head>
+<body>
+    <button class="back-button" onclick="window.location.href='index.html'">Back to Menu</button>
+  <h1 class="title-bg">ICON & SYMBOL</h1>
+
+  <div class="wrapper">
+    <aside class="sidebar">
+      <button class="tab" data-tab="emojis">Emojis</button>
+      <button class="tab active" data-tab="iconify">Iconify</button>
+    </aside>
+
+    <main class="content">
+      <input type="text" id="searchInput" class="search-bar" placeholder="Search icons..." />
+
+      <div id="emojiGrid" class="grid" style="display: none;"></div>
+      <div id="iconifyGrid" class="grid"></div>
+    </main>
+  </div>
+
+  <div class="copied" id="copiedPopup">Copied ✔</div>
+
+  <script>
+    const iconifyIcons = [
+     "mdi:home",
+  "mdi:account",
+  "mdi:email",
+  "mdi:camera",
+  "mdi:calendar",
+  "mdi:bell",
+  "mdi:lock",
+  "mdi:cart",
+  "mdi:bookmark",
+  "mdi:chat",
+  "mdi:checkbox-marked",
+  "mdi:chevron-down",
+  "mdi:chevron-left",
+  "mdi:chevron-right",
+  "mdi:chevron-up",
+  "mdi:close",
+  "mdi:check",
+  "mdi:download",
+  "mdi:upload",
+  "mdi:file",
+  "mdi:folder",
+  "mdi:image",
+  "mdi:link",
+  "mdi:map-marker",
+  "mdi:menu",
+  "mdi:magnify", 
+  "mdi:phone",
+  "mdi:play",
+  "mdi:pause",
+  "mdi:refresh",
+  "mdi:reload",
+  "mdi:settings",
+  "mdi:send",
+  "mdi:share",
+  "mdi:star",
+  "mdi:tag",
+  "mdi:trash-can",
+  "mdi:tooltip-text",
+  "mdi:translate",
+  "mdi:web",
+  "mdi:apps",
+    "mdi:arrow-left",
+    "mdi:arrow-right",
+    "mdi:arrow-up",
+    "mdi:arrow-down",
+    "mdi:dots-horizontal",
+    "mdi:dots-vertical",
+    "mdi:menu-open",
+    "mdi:menu-down",
+    "mdi:expand-more",
+    "mdi:comment",
+"mdi:alert-circle",
+"mdi:help-circle",
+"mdi:information",
+"mdi:check-circle",
+"mdi:close-circle",
+"mdi:progress-clock",
+"mdi:email-open",
+"mdi:message-processing",
+"mdi:phone-in-talk",
+"mdi:tools",
+"mdi:wrench",
+"mdi:clipboard-text",
+"mdi:hammer-screwdriver",
+"mdi:undo",
+"mdi:redo",
+"mdi:account-plus",
+"mdi:account-remove",
+"mdi:eye",
+"mdi:eye-off",
+"mdi:file-document",
+"mdi:file-image",
+"mdi:cloud-upload",
+"mdi:cloud-download",
+"mdi:content-copy",
+"mdi:note",
+"mdi:notebook",
+"mdi:folder-open",
+"mdi:attachment",
+"mdi:database",
+    "mdi:compass",
+"mdi:location-enter",
+"mdi:location-exit",
+"mdi:location-searching",
+"mdi:swap-horizontal",
+"mdi:swap-vertical",
+"mdi:undo-variant",
+"mdi:redo-variant",
+"mdi:map-outline",
+"mdi:view-dashboard",
+"mdi:view-grid",
+"mdi:table",
+"mdi:format-list-bulleted",
+"mdi:format-list-checkbox",
+"mdi:timeline",
+"mdi:filter-variant",
+"mdi:sort",
+"mdi:calendar-month",
+"mdi:calendar-check",
+"mdi:tune",
+"mdi:brightness-6",
+"mdi:power",
+"mdi:restart",
+"mdi:cog-outline",
+"mdi:tools",
+"mdi:debug-step-over",
+"mdi:domain",
+"mdi:monitor",
+"mdi:palette",
+"mdi:contrast",
+"mdi:opacity",
+"mdi:vector-square",
+"mdi:vector-arrange-above",
+"mdi:layers",
+"mdi:shape",
+"mdi:crop",
+"mdi:brush",
+"mdi:format-paint",
+"mdi:cloud-outline",
+"mdi:cloud-upload-outline",
+"mdi:cloud-download-outline",
+"mdi:image-multiple",
+"mdi:file-search",
+"mdi:file-edit",
+"mdi:folder-settings",
+"mdi:zip-box",
+"mdi:camera-outline",
+"mdi:video-outline",
+"mdi:account-circle",
+  "mdi:account-cog",
+  "mdi:account-tie",
+  "mdi:airplane",
+  "mdi:airplay",
+  "mdi:alarm",
+  "mdi:alien",
+  "mdi:archive",
+  "mdi:arm-flex",
+  "mdi:atom",
+  "mdi:auto-fix",
+  "mdi:av-timer",
+  "mdi:badge-account",
+  "mdi:barcode",
+  "mdi:beaker",
+  "mdi:bike",
+  "mdi:bluetooth",
+  "mdi:bluetooth-connect",
+  "mdi:book",
+  "mdi:book-open",
+  "mdi:briefcase",
+  "mdi:bug",
+  "mdi:bullhorn",
+  "mdi:cake",
+  "mdi:camera-switch",
+  "mdi:car",
+  "mdi:car-wash",
+  "mdi:cash",
+  "mdi:chart-bar",
+  "mdi:chart-line",
+  "mdi:chart-pie",
+  "mdi:checkbox-blank-outline",
+  "mdi:checkbox-multiple-marked",
+  "mdi:chess-queen",
+  "mdi:clipboard-check",
+  "mdi:clock",
+  "mdi:cloud-check",
+  "mdi:code-tags",
+  "mdi:coffee",
+  "mdi:comment-alert",
+  "mdi:comment-text",
+  "mdi:content-cut",
+  "mdi:cookie",
+  "mdi:credit-card",
+  "mdi:crown",
+  "mdi:cube",
+  "mdi:delete",
+  "mdi:delete-restore",
+  "mdi:devices",
+  "mdi:disc",
+  "mdi:dns",
+  "mdi:earth",
+  "mdi:elevation-decline",
+  "mdi:email-check",
+  "mdi:emoticon",
+  "mdi:equalizer",
+  "mdi:exit-run",
+  "mdi:fast-forward",
+  "mdi:file-cabinet",
+  "mdi:file-chart",
+  "mdi:fire",
+  "mdi:flag",
+  "mdi:flash",
+  "mdi:flask",
+  "mdi:folder-account",
+  "mdi:folder-plus",
+  "mdi:format-align-center",
+  "mdi:format-align-justify",
+  "mdi:format-align-left",
+  "mdi:format-align-right",
+  "mdi:gesture-tap",
+  "mdi:gavel",
+  "mdi:gift",
+  "mdi:google-circles",
+  "mdi:google-controller",
+  "mdi:headphones",
+  "mdi:headset",
+  "mdi:heart",
+  "mdi:heart-broken",
+  "mdi:home-city",
+  "mdi:ice-cream",
+  "mdi:image-filter",
+  "mdi:incognito",
+  "mdi:key",
+  "mdi:key-variant",
+  "mdi:keyboard",
+  "mdi:label",
+  "mdi:leaf",
+  "mdi:lightbulb",
+  "mdi:lightbulb-on",
+  "mdi:lock-open",
+  "mdi:login",
+  "mdi:logout",
+  "mdi:map",
+  "mdi:message",
+  "mdi:microphone",
+  "mdi:microphone-off",
+  "mdi:movie",
+  "mdi:multiplication",
+  "mdi:music",
+  "mdi:network",
+  "mdi:newspaper",
+  "mdi:numeric",
+  "mdi:account-group",
+  "mdi:alarm-check",
+  "mdi:bank",
+  "mdi:barcode-scan",
+  "mdi:book-outline",
+  "mdi:calendar-alert",
+  "mdi:cash-multiple",
+  "mdi:cloud-sync",
+  "mdi:shield-check"
+    ];
+    const emojis = [
+    "😀", "😃", "😄", "😁", "😆", "😅", "😂", "🤣", "🙂", "🙃",
+  "😉", "😊", "😇", "😍", "😘", "😗", "😙", "😚", "🥰", "🤩",
+  "😋", "😛", "😜", "🤪", "😝", "😒", "😞", "😔", "😟", "😕",
+  "🙁", "☹️", "😣", "😖", "😫", "😩", "🥺", "😢", "😭", "😤",
+  "😠", "😡", "🤬", "🤯", "😳", "🥵", "🥶", "😱", "😨", "😰",
+  "😥", "😓", "🤗", "🤔", "🤭", "🤫", "🤥", "😶", "😐", "😑",
+  "👋", "🤚", "🖐️", "✋", "🖖", "👌", "🤌", "🤏", "✌️", "🤞",
+  "🤟", "🤘", "🤙", "👈", "👉", "👆", "👇", "☝️", "👍", "👎",
+  "✊", "👊", "🤛", "🤜", "👏", "🙌", "🫶", "👐", "🤲", "🙏",
+   "🏳️", "🏴", "🏁", "🚩", "🏳️‍🌈", "🏳️‍⚧️", "🇧🇷", "🇺🇸", "🇫🇷", "🇯🇵",
+  "🇩🇪", "🇨🇳", "🇰🇷", "🇬🇧", "🇪🇸", "🇮🇹", "🇨🇦", "🇦🇷", "🇲🇽", "🇮🇳",
+  "✅", "❌", "⚠️", "❗", "❓", "❕", "🔒", "🔓", "🔑", "🔍",
+  "🔎", "🔗", "📎", "📌", "📍", "🧷", "🖊️", "🖋️", "📝", "📤",
+  "📥", "📦", "📁", "📂", "📄", "🗂️", "🔧", "⚙️", "🛠️", "🧰",
+  "📊", "📈", "📉", "🔺", "🔻", "🔼", "🔽", "⬆️", "⬇️", "➡️",
+  "🎨", "🖌️", "🖍️", "✏️", "🖋️", "🧠", "💡", "💻", "🖥️", "🖲️",
+  "📷", "🎥", "📸", "🎬", "📽️", "🔮", "✨", "🌟", "⭐", "💫",
+  "🌈", "🪄", "🧿", "📐", "📏", "🧮", "🔤", "🆗", "📢", "📣",
+   "💻", "🖥️", "📱", "📲", "📞", "📟", "📠", "🖨️", "🕹️", "💾",
+  "💿", "📡", "🔌", "🔋", "🧠", "🛸", "🛰️", "🚀", "⚙️", "🔧",
+  "🚗", "🚕", "🚙", "🚌", "🚎", "🏎️", "🚓", "🚑", "🚒", "🚐",
+  "🛻", "🚚", "🚛", "🚜", "🛵", "🏍️", "🛺", "🚲", "🛴", "🦽",
+  "🍏", "🍎", "🍐", "🍊", "🍋", "🍌", "🍉", "🍇", "🍓", "🫐",
+  "🍈", "🍒", "🍑", "🥭", "🍍", "🥥", "🥝", "🍅", "🥑", "🫒",
+  "🐶", "🐱", "🐭", "🐹", "🐰", "🦊", "🐻", "🐼", "🦁", "🐯",
+  "🐨", "🐮", "🐷", "🐸", "🐵", "🙈", "🙉", "🙊", "🐒", "🦍",
+  "⚽", "🏀", "🏈", "⚾", "🎾", "🏐", "🏉", "🥏", "🎱", "🏓",
+  "🏸", "🥅", "🏒", "🏑", "🏏", "🥍", "🏹", "🎯", "🥊", "🥋",
+  "🎉", "🎊", "🎈", "🎂", "🍰", "🧁", "🍭", "🍬", "🍫", "🍩",
+  "🍪", "🪅", "🎁", "🪩", "🪄", "🧨", "🎆", "🎇", "✨", "🎐",
+  "👨", "👩", "🧑", "👧", "👦", "🧒", "👶", "🧓", "👴", "👵",
+  "🙍", "🙎", "🙅", "🙆", "💁", "🙋", "🧏", "🙇", "🤦", "🤷",
+
+
+    ];
+
+    const emojiGrid = document.getElementById("emojiGrid");
+    const heroiconGrid = document.getElementById("heroiconGrid");
+    const iconifyGrid = document.getElementById("iconifyGrid");
+
+    function renderEmojis(filter = "") {
+      emojiGrid.innerHTML = "";
+      emojis.filter(e => e.includes(filter)).forEach(emoji => {
+        const div = document.createElement("div");
+        div.className = "icon";
+        div.textContent = emoji;
+        div.onclick = () => copyToClipboard(emoji);
+        emojiGrid.appendChild(div);
+      });
+    }
+
+    function renderIconify(filter = "") {
+      iconifyGrid.innerHTML = "";
+      iconifyIcons.filter(name => name.includes(filter.toLowerCase())).forEach(iconName => {
+        const div = document.createElement("div");
+        div.className = "icon";
+        div.title = iconName;
+
+        const icon = document.createElement("iconify-icon");
+        icon.setAttribute("icon", iconName);
+
+        div.appendChild(icon);
+        div.onclick = () => copyToClipboard(`<iconify-icon icon="${iconName}"></iconify-icon>`);
+        iconifyGrid.appendChild(div);
+      });
+    }
+
+    function copyToClipboard(text) {
+      navigator.clipboard.writeText(text);
+      copiedPopup.classList.add("show");
+      setTimeout(() => copiedPopup.classList.remove("show"), 1200);
+    }
+
+    // Handle search input
+    document.getElementById("searchInput").addEventListener("input", e => {
+      const filter = e.target.value.trim();
+      const tab = document.querySelector(".tab.active").dataset.tab;
+      if (tab === "emojis") renderEmojis(filter);
+      if (tab === "iconify") renderIconify(filter);
+    });
+
+    // Handle tab switching
+    document.querySelectorAll(".tab").forEach(tab => {
+      tab.addEventListener("click", () => {
+        document.querySelectorAll(".tab").forEach(t => t.classList.remove("active"));
+        tab.classList.add("active");
+
+        const tabTarget = tab.dataset.tab;
+
+        emojiGrid.style.display = tabTarget === "emojis" ? "grid" : "none";
+        heroiconGrid.style.display = tabTarget === "heroicons" ? "grid" : "none";
+        iconifyGrid.style.display = tabTarget === "iconify" ? "grid" : "none";
+
+        document.getElementById("searchInput").value = "";
+        if (tabTarget === "emojis") renderEmojis();
+        if (tabTarget === "iconify") renderIconify();
+      });
+    });
+
+    // Init
+    renderEmojis();
+    const copiedPopup = document.getElementById("copiedPopup");
+    
+
+    function renderIconify(filter = "") {
+      iconifyGrid.innerHTML = "";
+      const filtered = iconifyIcons.filter(name => name.includes(filter.toLowerCase()));
+      filtered.forEach(iconName => {
+        const div = document.createElement("div");
+        div.className = "icon";
+        div.title = iconName;
+
+        const icon = document.createElement("iconify-icon");
+        icon.setAttribute("icon", iconName);
+
+        div.appendChild(icon);
+        div.onclick = () => copyToClipboard(`<iconify-icon icon="${iconName}"></iconify-icon>`);
+        iconifyGrid.appendChild(div);
+      });
+    }
+
+    function copyToClipboard(text) {
+      navigator.clipboard.writeText(text);
+      copiedPopup.classList.add("show");
+      setTimeout(() => copiedPopup.classList.remove("show"), 1200);
+    }
+
+    // Tabs
+    document.querySelectorAll(".tab").forEach(tab => {
+      tab.addEventListener("click", () => {
+        document.querySelectorAll(".tab").forEach(t => t.classList.remove("active"));
+        tab.classList.add("active");
+
+        const tabTarget = tab.dataset.tab;
+        document.getElementById("emojiGrid").style.display = tabTarget === "emojis" ? "grid" : "none";
+        document.getElementById("heroiconGrid").style.display = tabTarget === "heroicons" ? "grid" : "none";
+        document.getElementById("iconifyGrid").style.display = tabTarget === "iconify" ? "grid" : "none";
+
+        document.getElementById("searchInput").value = "";
+        if (tabTarget === "iconify") renderIconify();
+      });
+    });
+
+    // Search bar
+    document.getElementById("searchInput").addEventListener("input", e => {
+      const filter = e.target.value.trim();
+      const activeTab = document.querySelector(".tab.active").dataset.tab;
+      if (activeTab === "iconify") renderIconify(filter);
+    });
+
+    renderIconify();
+
+    document.addEventListener("DOMContentLoaded", () => {
+  renderEmojis();
+  renderIconify();
+
+  // Mostrar apenas o grid da aba ativa no carregamento
+  updateVisibleGrid();
+
+  // Configurar tabs
+  document.querySelectorAll(".tab").forEach(tab => {
+    tab.addEventListener("click", () => {
+      document.querySelectorAll(".tab").forEach(t => t.classList.remove("active"));
+      tab.classList.add("active");
+      updateVisibleGrid();
+    });
+  });
+});
+
+function updateVisibleGrid() {
+  const activeTab = document.querySelector(".tab.active").dataset.tab;
+
+  const emojiGrid = document.getElementById("emojiGrid");
+  const iconifyGrid = document.getElementById("iconifyGrid");
+
+  emojiGrid.style.display = activeTab === "emojis" ? "grid" : "none";
+  iconifyGrid.style.display = activeTab === "iconify" ? "grid" : "none";
+}
+
+
+  </script>
+
+</body>
+</html>

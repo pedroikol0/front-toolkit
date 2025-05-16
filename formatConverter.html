@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Format Converter</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      box-sizing: border-box;
+      font-family: 'Orbitron', sans-serif;
+    }
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      background-color: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .title {
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      animation: fadeIn 0.6s ease forwards;
+
+      position: absolute;
+      font-size: 12vw;
+      color: #33333315;
+      bottom: -16%;
+      left: 0;
+      font-weight: 900;
+      user-select: none;
+      line-height: 0.9;
+      z-index: 0;
+    }
+
+    .container {
+      position: absolute;
+      left: 5%;
+      animation: fadeIn 0.6s ease forwards;
+      background-color: #fff;
+      border-radius: 15px;
+      box-shadow: 5px 5px 40px rgba(0, 0, 0, 0.1);
+      max-width: 90vw;
+     
+      min-width: 1100px;
+      min-height: 400px;
+      padding: 4rem;
+      padding-top: 6rem;
+      padding-bottom: 6rem;
+      display: flex;
+      flex-direction: column;
+      align-items: left;
+      gap: 2rem;
+      z-index: 2;
+    }
+
+    .input-wrapper ,
+    .select-wrapper,
+    .button-wrapper,
+    .download-wrapper {
+      display: flex;
+      flex-direction: column;
+      align-items: left;
+      gap: 1rem;
+      width: 100%;
+      
+    }
+
+    .input-wrapper p {
+      text-align: center;
+      font-size: 1rem;
+      color: #222;
+    }
+
+
+    input[type="file"] {
+      display: none;
+    }
+
+    .upload-btn {
+      background-color: #000000;
+      color: #ffffff;
+      border: none;
+      padding: 10px 20px;
+      font-weight: 500;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      cursor: pointer;
+      box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.1);
+      font-size: 2rem;
+    }
+
+    .upload-btn:hover {
+      background-color: #333;
+      transform: translateY(-2px);
+    }
+
+   .action-btn, .download-btn, select {
+      background-color: #ffffff;
+      color: #222;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 6px;
+      font-weight: 500;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      cursor: pointer;
+      box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.1);
+      font-size: 2rem;
+    }
+
+     .action-btn:hover, .download-btn:hover {
+      transform: translateY(-4px);
+      box-shadow: 12px 12px 40px rgba(0, 0, 0, 0.12);
+    }
+
+    select {
+      appearance: none;
+      background-color: #fff;
+      padding: 1rem 2rem;
+      font-size: 1rem;
+    }
+
+    #previewImage {
+      max-width: 100%;
+      max-height: 300px;
+      border-radius: 10px;
+      background: #fafafa;
+      padding: 0.5rem;
+      object-fit: contain;
+      box-shadow: 0 0 10px rgba(0,0,0,0.05);
+      display: none;
+    }
+
+    .description-box {
+      font-family: 'Orbitron', sans-serif;
+      animation: fadeIn 0.6s ease forwards;
+      color: #222;
+      max-width: 600px;
+      font-weight: 700;
+      letter-spacing: 0.8px;
+      text-align: justify;
+      font-size: 1rem;
+      line-height: 1.6;
+      position: absolute;
+      right: 2vw;
+      top: 40%;
+    }
+
+    .description-box h3 {
+      font-weight: 900;
+      font-size: 3.2rem;
+      color: #222;
+      margin-bottom: 1rem;
+    }
+
+    .description-box p {
+      font-size: 1rem;
+    }
+
+    .cofirmation {
+      position: absolute;
+      text-align: center;
+      left: 10px;
+      font-size: 1rem;
+      color: #222;
+      margin-left: 100px;
+
+    }
+
+    .back-button {
+    
+     position: absolute;
+     top: 20px;
+      left: 20px;
+     background-color: #ffffff;
+     color: #222;
+     border: none;
+     padding: 10px 16px;
+     border-radius: 6px;
+     font-weight: 500;
+     transition: transform 0.3s ease, box-shadow 0.3s ease;
+     cursor: pointer;
+     box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.1);
+   }
+
+   .back-button:hover {
+     transform: translateY(-4px);}
+     
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(0.98); }
+      to   { opacity: 1; transform: scale(1); } 
+    }
+  </style>
+</head>
+<body>
+  <button class="back-button" onclick="window.location.href='index.html'">Back to Menu</button>
+
+  <h1 class="title">FORMAT CONVERTER</h1>
+
+  <main class="container">
+    <div class="input-wrapper">
+      <label for="imageInput" class="upload-btn">Upload your IMG ←</label>
+      <input type="file" id="imageInput" accept="image/*" />
+    </div>
+
+    <p id="confirmationMessage" class="confirmation" ;></p>
+
+    <div class="select-wrapper">
+      <select id="formatSelect">
+        <option value="image/png">Convert to PNG</option>
+        <option value="image/jpeg">Convert to JPG</option>
+        <option value="image/webp">Convert to WEBP</option>
+      </select>
+    </div>
+
+    <div class="button-wrapper">
+      <button onclick="convertImage()" class="action-btn">Convert</button>
+    </div>
+
+    <!-- Substitui preview por texto -->
+
+    <img id="previewImage" src="" alt="Preview" style="display: none;" />
+
+    <div class="download-wrapper">
+      <a id="downloadLink" href="#" download="converted-image.png" style="display: none;">
+        <button class="download-btn">Download</button>
+      </a>
+    </div>
+  </main>
+
+  <div class="description-box">
+    <h3>Throw your trouble</h3>
+    <p>
+      Whether you need PNGs for transparency, JPEGs for compression, or WEBP for modern formats—this tool makes conversion effortless. Upload, choose your format, and hit convert. Designed to simplify your workflow with style and speed.
+    </p>
+  </div>
+
+  <script>
+    const imageInput = document.getElementById("imageInput");
+    const previewImage = document.getElementById("previewImage");
+    const confirmationMessage = document.getElementById("confirmationMessage");
+    let originalImage = null;
+    let imageFileName = "converted-image";
+
+    imageInput.addEventListener("change", function () {
+      const file = this.files[0];
+      if (file) {
+        imageFileName = file.name.split(".")[0];
+
+        const reader = new FileReader();
+        reader.onload = function (e) {
+          originalImage = new Image();
+          originalImage.src = e.target.result;
+          originalImage.onload = () => {
+            previewImage.style.display = "none";
+            confirmationMessage.textContent = "Image received ✅";
+          };
+        };
+        reader.readAsDataURL(file);
+      }
+    });
+
+    function convertImage() {
+      if (!originalImage) {
+        alert("Upload an image first!");
+        return;
+      }
+
+      const format = document.getElementById("formatSelect").value;
+      const canvas = document.createElement("canvas");
+      canvas.width = originalImage.width;
+      canvas.height = originalImage.height;
+
+      const ctx = canvas.getContext("2d");
+      ctx.drawImage(originalImage, 0, 0);
+
+      canvas.toBlob(blob => {
+        const url = URL.createObjectURL(blob);
+        const extension = format.split("/")[1];
+
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = `${imageFileName}.${extension}`;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+      }, format);
+    }
+  </script>
+
+</body>
+</html>

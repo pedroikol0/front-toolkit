@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet" />  
+  <title>Spacing & Grid Helper</title>
+  <style>
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Orbitron', sans-serif;
+      background: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      padding: 60px 20px;
+      height: 100vh;
+      overflow-y: hidden;
+    }
+
+    .container {
+      max-width: 900px;
+      background: #fff;
+      border-radius: 12px;  
+      box-shadow: 10px 10px 30px rgba(0, 0, 0, 0.07);
+      padding: 30px;
+      width: 100%;
+      height: 75%; /* Definido para que o grid tenha altura para dividir */
+      display: flex;
+      flex-direction: column;
+    }
+
+    h1 {
+      font-size: 24px;
+      margin-bottom: 20px;
+      text-align: center;
+      flex-shrink: 0;
+    }
+
+    .controls {
+      display: grid;
+      gap: 20px;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      margin-bottom: 30px;
+      flex-shrink: 0;
+    }
+
+    .control {
+      display: flex;
+      flex-direction: column;
+    }
+
+    label {
+      margin-bottom: 8px;
+      font-size: 14px;
+      color: #333;
+    }
+
+    input[type="range"],
+    select {
+      width: 100%;
+    }
+
+    .preview-grid {
+      display: grid;
+      background: #f0f0f0;
+      border: 1px dashed #ccc;
+      transition: all 0.3s ease;
+      gap: 10px;
+      flex-grow: 1; /* Faz o preview crescer para ocupar o espaço disponível */
+      /* altura agora vem do container + flex-grow */
+    }
+
+    .preview-item {
+      background: #222;
+      border-radius: 6px;
+      width: 100%;
+      height: 100%;
+    }
+
+    .output {
+      margin-top: 30px;
+      font-family: monospace;
+      background: #eee;
+      padding: 12px;
+      border-radius: 6px;
+      white-space: pre-wrap;
+      flex-shrink: 0;
+    }
+
+    input[type="range"] {
+      -webkit-appearance: none; 
+      width: 100%;
+      height: 8px;
+      background: #ccc; /* cor da barra do slider */
+      border-radius: 4px;
+      outline: none;
+      margin: 0;
+      padding: 0;
+    }
+    
+    input[type="range"]::-webkit-slider-thumb {
+  background: #ffffff;  /* cor da bolinha */
+  border: 1px solid #666;
+  border-radius: 50%;
+  width: 18px;
+  height: 18px;
+  cursor: pointer;
+  margin-top: -5px;
+}
+  .bg-text {
+    animation: fadeIn 1.2s ease-out both;
+    animation-delay: 0.3s;
+    font-family: 'Orbitron', 'Arial', sans-serif;
+    text-align: left;
+    font-weight: 700;
+    font-size: 11.6vw;
+    max-width: 90%;
+    color: #33333315;
+    position: absolute;
+    user-select: none;
+    bottom: -24%;
+    left: 0;
+    transform: translateY(-50%);
+    line-height: 0.9;
+    z-index: -2;
+    }
+
+    @media (max-width: 600px) {
+      .controls {
+        grid-template-columns: 1fr; /* Coloca os controles em uma coluna em telas menores */
+      }
+    }
+
+    .back-button {
+      animation: fadeIn 1.2s ease-out both;
+     position: absolute;
+     top: 20px;
+      left: 20px;
+     background-color: #ffffff;
+     color: #222;
+     border: none;
+     padding: 10px 16px;
+     border-radius: 6px;
+     font-weight: 500;
+     transition: transform 0.3s ease, box-shadow 0.3s ease;
+     cursor: pointer;
+     box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.1);
+     font-family: 'Orbitron', sans-serif;
+   }
+
+   .back-button:hover {
+       transform: translateY(-4px);
+       box-shadow: 12px 12px 40px rgba(0, 0, 0, 0.12);
+     
+   }
+  </style>
+</head>
+<body>
+  <button class="back-button" onclick="window.location.href='index.html'">Back to Menu</button>
+
+  <h1 class="bg-text">Spacing & Grid Helper</h1>
+  <div class="container">
+    
+
+    <div class="controls">
+      <div class="control">
+        <label for="marginSlider">Outer Margin</label>
+        <input type="range" id="marginSlider" min="0" max="100" value="20" />
+      </div>
+
+      <div class="control">
+        <label for="paddingSlider">Inner Padding</label>
+        <input type="range" id="paddingSlider" min="0" max="100" value="20" />
+      </div>
+
+      <div class="control">
+        <label for="colsSlider">Columns</label>
+        <input type="range" id="colsSlider" min="1" max="6" value="3" />
+      </div>
+
+      <div class="control">
+        <label for="rowsSlider">Rows</label>
+        <input type="range" id="rowsSlider" min="1" max="6" value="2" />
+      </div>
+
+      <div class="control">
+        <label for="unitSelector">Unit</label>
+        <select id="unitSelector">
+          <option value="px" selected>px</option>
+          <option value="rem">rem</option>
+          <option value="vw">vw</option>
+          <option value="vh">vh</option>
+        </select>
+      </div>
+    </div>
+
+    <div id="preview" class="preview-grid"></div>
+
+    <div class="output" id="outputCSS"></div>
+  </div>
+
+  <script>
+    const marginSlider = document.getElementById('marginSlider');
+    const paddingSlider = document.getElementById('paddingSlider');
+    const colsSlider = document.getElementById('colsSlider');
+    const rowsSlider = document.getElementById('rowsSlider');
+    const unitSelector = document.getElementById('unitSelector');
+    const preview = document.getElementById('preview');
+    const outputCSS = document.getElementById('outputCSS');
+
+    function updateSlidersRange() {
+      const unit = unitSelector.value;
+      const maxVal = unit === 'px' ? 100 : 20;
+
+      [marginSlider, paddingSlider].forEach(slider => {
+        slider.max = maxVal;
+        if (slider.value > maxVal) slider.value = maxVal;
+      });
+    }
+
+    function updatePreview() {
+      updateSlidersRange();
+
+      const margin = marginSlider.value;
+      const padding = paddingSlider.value;
+      const columns = colsSlider.value;
+      const rows = rowsSlider.value;
+      const unit = unitSelector.value;
+
+      preview.style.margin = `${margin}${unit}`;
+      preview.style.padding = `${padding}${unit}`;
+      preview.style.gridTemplateColumns = `repeat(${columns}, 1fr)`;
+      preview.style.gridTemplateRows = `repeat(${rows}, 1fr)`;
+
+      preview.innerHTML = '';
+      const totalItems = columns * rows;
+      for (let i = 0; i < totalItems; i++) {
+        const div = document.createElement('div');
+        div.className = 'preview-item';
+        preview.appendChild(div);
+      }
+
+      outputCSS.textContent =
+`/* Resultado CSS */
+.container {
+  margin: ${margin}${unit};
+  padding: ${padding}${unit};
+  display: grid;
+  grid-template-columns: repeat(${columns}, 1fr);
+  grid-template-rows: repeat(${rows}, 1fr);
+  gap: 10px;
+  height: 600px; /* certifique-se de definir a altura do container */
+}`;
+    }
+
+    marginSlider.addEventListener('input', updatePreview);
+    paddingSlider.addEventListener('input', updatePreview);
+    colsSlider.addEventListener('input', updatePreview);
+    rowsSlider.addEventListener('input', updatePreview);
+    unitSelector.addEventListener('change', updatePreview);
+
+    updatePreview(); // inicial
+  </script>
+</body>
+</html>

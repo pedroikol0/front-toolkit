@@ -1,108 +1,578 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Dev Toolkit - CSS Animations</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>CSS Animations</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron&display=swap" rel="stylesheet">
   <style>
-    body {
-      font-family: 'Orbitron', sans-serif;
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
     }
 
+    ::selection {
+      background: #222;
+      color: #ccc;
+    }
+
+    body {
+      font-family: 'Orbitron', sans-serif;
+      background-color: white;
+      color: black;
+      padding: 2rem;
+    }
+
+    .background-text {
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      animation: fadeIn 0.6s ease forwards;
+      text-align: right;
+      position: fixed;
+      font-size: 12vw;
+      color: #33333315;
+      bottom: 0%;
+      left: 0;
+      font-weight: 900;
+      user-select: none;
+      line-height: 0.9;
+      z-index: 0;
+    }
+
+    .back-button {
+      font-family: 'Orbitron', sans-serif;
+      background-color: #ffffff;
+      color: #222;
+      border: none;
+      position: fixed;
+      padding: 10px 16px;
+      border-radius: 6px;
+      text-decoration: none;
+      font-weight: 500;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      cursor: pointer;
+      box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.1);
+      font-size: 0.8rem;
+      animation: fadeIn 0.6s ease forwards;
+    }
+
+    .back-button:hover {
+      transform: translateY(-4px);
+    }
+
+    .container {
+      position: relative;
+      max-width: 1000px;
+      margin:  15rem;
+      z-index: 1;
+      animation: fadeIn 0.6s ease forwards;
+    }
+
+    .card {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #fff;
+      border-radius: 12px;
+      padding: 20px;
+      margin-bottom: 24px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .card button {
+      padding: 12px 24px;
+      margin-left: 2rem;
+      border: none;
+      border-radius: 6px;
+      font-weight: bold;
+      font-family: 'Orbitron', sans-serif;
+      color: white;
+      background-color: black;
+      cursor: pointer;
+    }
+
+    .card pre {
+      background-color: #f3f4f6;
+      padding: 16px;
+      border-radius: 8px;
+      font-family: monospace;
+      font-size: 14px;
+      width: 70%;
+      margin-left: 20px;
+      overflow-x: auto;
+    }
+
+    /* Animations */
     @keyframes bounce {
       0%, 100% { transform: translateY(0); }
       50% { transform: translateY(-20px); }
     }
+
+    .bounce {
+      animation: bounce 1s infinite;
+    }
+
     @keyframes pulse {
       0%, 100% { transform: scale(1); }
       50% { transform: scale(1.1); }
     }
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
+
+    .pulse {
+      animation: pulse 1s infinite;
     }
+
     @keyframes slideInLeft {
       from { transform: translateX(-100%); opacity: 0; }
       to { transform: translateX(0); opacity: 1; }
     }
-    @keyframes slideInRight {
-      from { transform: translateX(100%); opacity: 0; }
-      to { transform: translateX(0); opacity: 1; }
+
+    .slide-in-left {
+      animation: slideInLeft 2s ease-out infinite;
     }
-    @keyframes scaleUp {
-      from { transform: scale(0.8); opacity: 0; }
-      to { transform: scale(1); opacity: 1; }
-    }
-    @keyframes shake {
-      0%, 100% { transform: translateX(0); }
-      25% { transform: translateX(-5px); }
-      75% { transform: translateX(5px); }
-    }
+
     @keyframes rotate {
       from { transform: rotate(0deg); }
       to { transform: rotate(360deg); }
     }
-    @keyframes flip {
-      from { transform: rotateY(0); }
-      to { transform: rotateY(180deg); }
+
+    .rotate {
+      animation: rotate 3s linear infinite;
+      transform: rotate(-15deg);
     }
-    @keyframes ping {
-      0% { transform: scale(1); opacity: 1; }
-      75%, 100% { transform: scale(2); opacity: 0; }
-    }
-    @keyframes wiggle {
-      0%, 100% { transform: rotate(-3deg); }
-      50% { transform: rotate(3deg); }
-    }
-    @keyframes growShrink {
-      0%, 100% { transform: scale(1); }
-      50% { transform: scale(1.2); }
-    }
-    @keyframes blurIn {
-      0% { filter: blur(4px); opacity: 0; }
-      100% { filter: blur(0); opacity: 1; }
-    }
-    @keyframes slideUpFade {
-      from { transform: translateY(20px); opacity: 0; }
-      to { transform: translateY(0); opacity: 1; }
-    }
-    @keyframes heartbeat {
-      0%, 100% { transform: scale(1); }
-      14%, 42%, 70% { transform: scale(1.3); }
-      28%, 56%, 84% { transform: scale(1); }
-    }
-    @keyframes swirl {
-      0% { transform: rotate(0) scale(0); opacity: 0; }
-      100% { transform: rotate(720deg) scale(1); opacity: 1; }
-    }
-    @keyframes drop {
-      0% { transform: translateY(-100%); opacity: 0; }
-      100% { transform: translateY(0); opacity: 1; }
-    }
+
+    @keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+.fade-in {
+  animation: fadeIn 2s ease-in infinite;
+}
+
+@keyframes zoomIn {
+  from { transform: scale(0.5); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+.zoom-in {
+  animation: zoomIn 1.5s ease-in infinite;
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  20%, 60% { transform: translateX(-10px); }
+  40%, 80% { transform: translateX(10px); }
+}
+.shake {
+  animation: shake 0.8s ease-in-out infinite;
+}
+
+@keyframes flip {
+  from { transform: rotateY(0deg); }
+  to { transform: rotateY(180deg); }
+}
+.flip {
+  animation: flip 1.5s ease-in-out infinite;
+  transform-style: preserve-3d;
+}
+
+@keyframes swing {
+  20% { transform: rotate(15deg); }
+  40% { transform: rotate(-10deg); }
+  60% { transform: rotate(5deg); }
+  80% { transform: rotate(-5deg); }
+  100% { transform: rotate(0deg); }
+}
+.swing {
+  animation: swing 1s ease-in-out infinite;
+  transform-origin: top center;
+}
+
+@keyframes wobble {
+  0% { transform: translateX(0%); }
+  15% { transform: translateX(-25%) rotate(-5deg); }
+  30% { transform: translateX(20%) rotate(3deg); }
+  45% { transform: translateX(-15%) rotate(-3deg); }
+  60% { transform: translateX(10%) rotate(2deg); }
+  75% { transform: translateX(-5%) rotate(-1deg); }
+  100% { transform: translateX(0%); }
+}
+.wobble {
+  animation: wobble 1.3s ease-in-out infinite;
+}
+
+@keyframes flipInX {
+  from {
+    transform: perspective(400px) rotateX(90deg);
+    opacity: 0;
+  }
+  to {
+    transform: perspective(400px) rotateX(0deg);
+    opacity: 1;
+  }
+}
+.flip-in-x {
+  animation: flipInX 2s ease-out infinite;
+  backface-visibility: hidden;
+}
+
+@keyframes flash {
+  0%, 100% { opacity: 1; }
+  25%, 75% { opacity: 0; }
+  50% { opacity: 1; }
+
+}
+.flash {
+  animation: flash 1s linear infinite;
+}
+
+@keyframes rollIn {
+  from {
+    opacity: 0;
+    transform: translateX(-100%) rotate(-120deg);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0) rotate(0deg);
+  }
+}
+.roll-in {
+  animation: rollIn 1.5s ease-out infinite;
+}
+
+@keyframes heartBeat {
+  0%, 100% { transform: scale(1); }
+  14% { transform: scale(1.3); }
+  28% { transform: scale(1); }
+  42% { transform: scale(1.3); }
+  70% { transform: scale(1); }
+}
+.heart-beat {
+  animation: heartBeat 1.2s ease-in-out infinite;
+}
+
+@keyframes slideUp {
+  from { transform: translateY(100%); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+.slide-up {
+  animation: slideUp 1s ease-out infinite;
+}
+
+@keyframes fadeInRight {
+  from { transform: translateX(40px); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+.fade-in-right {
+  animation: fadeInRight 1s ease-out infinite;
+}
+
+@keyframes bounceIn {
+  0% { opacity: 0; transform: scale(0.3); }
+  50% { transform: scale(1.05); }
+  70% { transform: scale(0.9); }
+  100% { opacity: 1; transform: scale(1); }
+}
+.bounce-in {
+  animation: bounceIn 0.8s ease-out infinite;
+}
+
+@keyframes rubberBand {
+  0% { transform: scale(1); }
+  30% { transform: scale(1.25, 0.75); }
+  40% { transform: scale(0.75, 1.25); }
+  50% { transform: scale(1.15, 0.85); }
+  65% { transform: scale(.95, 1.05); }
+  75% { transform: scale(1.05, .95); }
+  100% { transform: scale(1); }
+}
+.rubber-band {
+  animation: rubberBand 1s infinite;
+}
+
+@keyframes zoomOut {
+  from { transform: scale(1); opacity: 1; }
+  to { transform: scale(0.3); opacity: 0; }
+}
+.zoom-out {
+  animation: zoomOut 1.2s ease-out infinite;
+}
+
+@keyframes jello {
+  from, 100% { transform: none; }
+  11.1% { transform: skewX(-12.5deg) skewY(-12.5deg); }
+  22.2% { transform: skewX(6.25deg) skewY(6.25deg); }
+  33.3% { transform: skewX(-3.125deg) skewY(-3.125deg); }
+  44.4% { transform: skewX(1.5625deg) skewY(1.5625deg); }
+  55.5% { transform: skewX(-0.78125deg) skewY(-0.78125deg); }
+  66.6% { transform: skewX(0.390625deg) skewY(0.390625deg); }
+}
+.jello {
+  animation: jello 1s infinite;
+  transform-origin: center;
+}
+
   </style>
 </head>
-<body class="bg-white text-black p-8 h-screen overflow-hidden relative">
-  <div class="max-w-6xl mx-auto space-y-12">
-    <button onclick="window.location.href='index.html'" class="absolute top-10 left-7 bg-white text-neutral-800 border-none p-2 rounded-md text-sm cursor-pointer shadow-[10px_10px_20px_rgba(0,0,0,0.1)] font-orbitron transition-transform duration-300 ease-in-out hover:scale-105 hover:shadow-lg">Back to Menu</button>
-    <span class="absolute text-[11.6vw] font-extrabold text-gray-100 left-[39%] bottom-[-30%]  -translate-x-1/2 -translate-y-2/4 -z-[1] leading-none animate-[fadeIn_1.2s_ease-out_both] tracking-tighter" style="animation-delay: 0.3s;">
-      CSS ANIMATION GENERATOR
-    </span>
-    <div class="overflow-y-auto h-screen z-2">
-      <div class="relative grid grid-cols-1 md:grid-cols-1 gap-4 absolute z-2">
-        <!-- Repeatable Card Component -->
-        <!-- Example for one animation -->
-        <div class="flex items-center justify-between p-6 border rounded-xl shadow pl-10 bg-white z-10">
-          <button class="px-6 py-3 bg-[#222] text-white rounded animate-[bounce_2s_infinite] z-10">Bounce</button>
-          <pre class="text-sm bg-gray-100 p-4 rounded overflow-auto w-1/2">@keyframes bounce {
+<body>
+
+  <div class="background-text">ANIMATION GENERATOR</div>
+
+  <a href="index.html" class="back-button">Back to Menu</a>
+
+  <div class="container">
+    <!-- Bounce -->
+    <div class="card">
+      <button class="bounce">Bounce</button>
+      <pre>
+@keyframes bounce {
   0%, 100% { transform: translateY(0); }
   50% { transform: translateY(-20px); }
-}</pre>
-        </div>
-        
-      </div>
+}
+      </pre>
     </div>
+
+    <!-- Pulse -->
+    <div class="card">
+      <button class="pulse" style="background-color: gray;">Pulse</button>
+      <pre>
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+}
+      </pre>
+    </div>
+
+    <!-- Slide In Left -->
+    <div class="card">
+      <button class="slide-in-left">Slide In Left</button>
+      <pre>
+@keyframes slideInLeft {
+  from { transform: translateX(-100%); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+      </pre>
+    </div>
+
+    <!-- Rotate -->
+    <div class="card">
+      <button class="rotate">Rotate</button>
+      <pre>
+@keyframes rotate {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+      </pre>
+    </div>
+    <!-- Fade In -->
+<div class="card">
+  <button class="fade-in">Fade In</button>
+  <pre>
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+  </pre>
+</div>
+
+<!-- Zoom In -->
+<div class="card">
+  <button class="zoom-in">Zoom In</button>
+  <pre>
+@keyframes zoomIn {
+  from { transform: scale(0.5); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+  </pre>
+</div>
+
+<!-- Shake -->
+<div class="card">
+  <button class="shake">Shake</button>
+  <pre>
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  20%, 60% { transform: translateX(-10px); }
+  40%, 80% { transform: translateX(10px); }
+}
+  </pre>
+</div>
+
+<!-- Flip -->
+<div class="card">
+  <button class="flip">Flip</button>
+  <pre>
+@keyframes flip {
+  from { transform: rotateY(0deg); }
+  to { transform: rotateY(180deg); }
+}
+  </pre>
+</div>
+
+<div class="card">
+  <button class="swing">Swing</button>
+  <pre>
+@keyframes swing {
+  20% { transform: rotate(15deg); }
+  40% { transform: rotate(-10deg); }
+  60% { transform: rotate(5deg); }
+  80% { transform: rotate(-5deg); }
+  100% { transform: rotate(0deg); }
+}
+  </pre>
+</div>
+
+<!-- Wobble -->
+<div class="card">
+  <button class="wobble">Wobble</button>
+  <pre>
+@keyframes wobble {
+  0% { transform: translateX(0%); }
+  15% { transform: translateX(-25%) rotate(-5deg); }
+  30% { transform: translateX(20%) rotate(3deg); }
+  45% { transform: translateX(-15%) rotate(-3deg); }
+  60% { transform: translateX(10%) rotate(2deg); }
+  75% { transform: translateX(-5%) rotate(-1deg); }
+  100% { transform: translateX(0%); }
+}
+  </pre>
+</div>
+
+<!-- Flip In X -->
+<div class="card">
+  <button class="flip-in-x">Flip In X</button>
+  <pre>
+@keyframes flipInX {
+  from {
+    transform: perspective(400px) rotateX(90deg);
+    opacity: 0;
+  }
+  to {
+    transform: perspective(400px) rotateX(0deg);
+    opacity: 1;
+  }
+}
+  </pre>
+</div>
+
+<!-- Flash -->
+<div class="card">
+  <button class="flash">Flash</button>
+  <pre>
+@keyframes flash {
+  0%, 100% { opacity: 1; }
+  25%, 75% { opacity: 0; }
+  50% { opacity: 1; }
+}
+  </pre>
+</div>
+
+<!-- Roll In -->
+<div class="card">
+  <button class="roll-in">Roll In</button>
+  <pre>
+@keyframes rollIn {
+  from {
+    opacity: 0;
+    transform: translateX(-100%) rotate(-120deg);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0) rotate(0deg);
+  }
+}
+  </pre>
+</div>
+
+<!-- Heart Beat -->
+<div class="card">
+  <button class="heart-beat">Heart Beat</button>
+  <pre>
+@keyframes heartBeat {
+  0%, 100% { transform: scale(1); }
+  14% { transform: scale(1.3); }
+  28% { transform: scale(1); }
+  42% { transform: scale(1.3); }
+  70% { transform: scale(1); }
+}
+  </pre>
+</div>
+
+<div class="card">
+  <button class="slide-up">Slide Up</button>
+  <pre>
+@keyframes slideUp {
+  from { transform: translateY(100%); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+  </pre>
+</div>
+
+<!-- Fade In Right -->
+<div class="card">
+  <button class="fade-in-right">Fade In Right</button>
+  <pre>
+@keyframes fadeInRight {
+  from { transform: translateX(40px); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+  </pre>
+</div>
+
+<!-- Bounce In -->
+<div class="card">
+  <button class="bounce-in">Bounce In</button>
+  <pre>
+@keyframes bounceIn {
+  0% { opacity: 0; transform: scale(0.3); }
+  50% { transform: scale(1.05); }
+  70% { transform: scale(0.9); }
+  100% { opacity: 1; transform: scale(1); }
+}
+  </pre>
+</div>
+
+<!-- Rubber Band -->
+<div class="card">
+  <button class="rubber-band">Rubber Band</button>
+  <pre>
+@keyframes rubberBand {
+  0% { transform: scale(1); }
+  30% { transform: scale(1.25, 0.75); }
+  40% { transform: scale(0.75, 1.25); }
+  50% { transform: scale(1.15, 0.85); }
+  65% { transform: scale(.95, 1.05); }
+  75% { transform: scale(1.05, .95); }
+  100% { transform: scale(1); }
+}
+  </pre>
+</div>
+
+<!-- Zoom Out -->
+<div class="card">
+  <button class="zoom-out">Zoom Out</button>
+  <pre>
+@keyframes zoomOut {
+  from { transform: scale(1); opacity: 1; }
+  to { transform: scale(0.3); opacity: 0; }
+}
+  </pre>
+</div>
+
+<!-- Jello -->
+<div class="card">
+  <button class="jello">Jello</button>
+  <pre>
+@keyframes jello {
+  from, 100% { transform: none; }
+  11.1% { transform: skewX(-12.5deg) skewY(-12.5deg); }
+  22.2% { transform: skewX(6.25deg) skewY(6.25deg); }
+  33.3% { transform: skewX(-3.125deg) skewY(-3.125deg); }
+  44.4% { transform: skewX(1.5625deg) skewY(1.5625deg); }
+  55.5% { transform: skewX(-0.78125deg) skewY(-0.78125deg); }
+  66.6% { transform: skewX(0.390625deg) skewY(0.390625deg); }
+}
+  </pre>
+</div>  
   </div>
+
 </body>
 </html>
